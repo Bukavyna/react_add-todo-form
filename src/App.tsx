@@ -20,6 +20,8 @@ const enrichedTodos: Todo[] = todosFromServer.map(todo => {
 
 export const App = () => {
   const [todos, setTodos] = useState<Todo[]>(enrichedTodos);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [users, setUsers] = useState<User[]>(usersFromServer);
 
   const [title, setTitle] = useState('');
@@ -45,6 +47,7 @@ export const App = () => {
     if (isValid) {
       // 1. Знаходимо користувача
       const user = users.find(u => u.id === userId);
+
       if (!user) {
         return; // На всяк випадок, якщо користувача не знайдено
       }
@@ -56,7 +59,7 @@ export const App = () => {
         userId,
         completed: false,
         user,
-      }
+      };
 
       // 3. Додаємо новий todo до списку
       setTodos([...todos, newTodo]);
@@ -71,28 +74,28 @@ export const App = () => {
     <div className="App">
       <h1>Add todo form</h1>
 
-      <form
-        action="/api/todos"
-        method="POST"
-        onSubmit={handleSubmit}
-      >
+      <form action="/api/todos" method="POST" onSubmit={handleSubmit}>
         <div className="field">
+          <label htmlFor="titleInput">Title</label>
           <input
+            id="titleInput"
             type="text"
             data-cy="titleInput"
             value={title} // Контролюємо значення
             onChange={e => {
-              setTitle(e.target.value);
-              setTitleError(false)
+              // Видаляємо всі символи, крім літер, цифр і пробілів
+              const sanitizedTitle = e.target.value.replace(/[^a-zA-Z0-9\sа-яА-ЯёЁїІЇєЄґҐ]/g, '');
+              setTitle(sanitizedTitle);
+              setTitleError(false);
             }}
           />
-          {titleError && (
-            <span className="error">Please enter a title</span>
-          )}
+          {titleError && <span className="error">Please enter a title</span>}
         </div>
 
         <div className="field">
+          <label htmlFor="userSelect">User</label>
           <select
+            id="userSelect"
             data-cy="userSelect"
             value={userId}
             onChange={e => {
@@ -109,9 +112,7 @@ export const App = () => {
               </option>
             ))}
           </select>
-          {userError && (
-            <span className="error">Please choose a user</span>
-          )}
+          {userError && <span className="error">Please choose a user</span>}
         </div>
 
         <button type="submit" data-cy="submitButton">
@@ -120,7 +121,6 @@ export const App = () => {
       </form>
 
       <TodoList todos={todos} />
-
     </div>
   );
 };

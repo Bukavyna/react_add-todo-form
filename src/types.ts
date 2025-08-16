@@ -10,5 +10,5 @@ export interface Todo {
   title: string;
   completed: boolean;
   userId: number;
-  user: User;  // Тип "user" - це наш інтерфейс User
+  user: User; // Тип "user" - це наш інтерфейс User
 }

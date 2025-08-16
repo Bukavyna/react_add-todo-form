@@ -5,12 +5,7 @@ interface TodoInfoProps {
 }
 
 export const TodoInfo = ({ todo }: TodoInfoProps) => {
-  const {
-    title,
-    user,
-    completed,
-    id,
-  } = todo;
+  const { title, user, completed, id } = todo;
 
   return (
     <article
@@ -23,5 +18,5 @@ export const TodoInfo = ({ todo }: TodoInfoProps) => {
         {user.name}
       </a>
     </article>
-  )
+  );
 };

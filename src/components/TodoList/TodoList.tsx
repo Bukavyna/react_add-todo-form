@@ -8,10 +8,7 @@ interface TodoListProps {
 export const TodoList = ({ todos }: TodoListProps) => (
   <div className="todos">
     {todos.map(todo => (
-      <TodoInfo
-        key={todo.id}
-        todo={todo}
-      />
+      <TodoInfo key={todo.id} todo={todo} />
     ))}
   </div>
 );
